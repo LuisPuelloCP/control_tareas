@@ -10,7 +10,7 @@ module.exports.UserAPI = (app) => {
       "/post/user",isAuthenticatedAdmin,
       passport.authenticate("local-signup", {
         successRedirect: "/logout",
-        failureRedirect: "/home",
+        failureRedirect: "/",
         passReqToCallback: true,
       })
     )
@@ -18,8 +18,8 @@ module.exports.UserAPI = (app) => {
     .post(
       "/post/auth/login",
       passport.authenticate("local-signin", {
-        successRedirect: "/home",
-        failureRedirect: "/signin",
+        successRedirect: "/",
+        failureRedirect: "/signIn",
         passReqToCallback: true,
       })
     )
@@ -37,15 +37,17 @@ module.exports.UserAPI = (app) => {
     //Ruta actualizar un Usuario
     .post("/patch/user/:id", isAuthenticated , (req, res, next) => {
       UsersController.updateUser(req, res);
-      res.redirect("/home")
+      res.redirect("/")
     })
     //Asignar una tarea
     .post("/asignar/task/user", isAuthenticatedAdmin, (req, res, next) => {
       UsersController.assigmentTask(req,res)
-      res.redirect("/home")
+      res.redirect("/")
     })
     //Eliminar un usuario
-    .delete("/delete/user/:",isAuthenticatedAdmin, UsersController.deleteUser);
+    .delete("/delete/user/:",isAuthenticatedAdmin, UsersController.deleteUser)
+
+    
 
     function isAuthenticatedAdmin(req, res, next) {
       const user = req.user;

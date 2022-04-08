@@ -6,7 +6,6 @@ module.exports.UsersController = {
     getUsers: async (req,res) => {
         try {
             const users = await UsersService.getAll(res);
-            return res.json(users);
         } catch (error) {
             console.error(error);
         }

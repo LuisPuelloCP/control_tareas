@@ -7,7 +7,7 @@ module.exports.Views = (app) => {
     .get("/signup", isAuthenticated, (req, res, next) => {
       const user = req.user;
       if( user.rol === "administrador"){
-        res.render("signup");
+        res.render("signUp");
       }else{
         res.render("home");
       }
@@ -23,7 +23,7 @@ module.exports.Views = (app) => {
       }
     })
   // Ruta para el inicio del administrador
-    .get("/home", isAuthenticated, (req, res, next) => {
+    .get("/", isAuthenticated, (req, res, next) => {
       const user = req.user;
       if( user.rol === "administrador"){
         res.render("homeAdmin")
@@ -41,7 +41,7 @@ module.exports.Views = (app) => {
           res.render("homeOper");
         }
       }else{ 
-        res.render("signin");
+        res.render("signIn");
       }
       
     })
@@ -75,9 +75,6 @@ module.exports.Views = (app) => {
       }
     })
 
-    .get("/", (req, res, next) => {
-      res.redirect("/home")
-    })
   
     function isAuthenticated(req, res, next) {
       if (req.isAuthenticated()) {

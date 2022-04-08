@@ -15,13 +15,14 @@ module.exports.TasksAPI = (app) => {
     //Ruta crear una tarea
     .post("/post/task",isAuthenticatedAdmin, (req, res, next) => {
         TasksController.createTask(req,res)
-        res.redirect("/home")
+        res.redirect("/")
 
     })
     //Ruta actualizar una tarea
     .post("/patch/task/",isAuthenticated, TasksController.updateTask)
     //Eliminar una tarea
     .delete("/delete/task/:id",isAuthenticatedAdmin, TasksController.deleteTask)
+
 
     
     function isAuthenticatedAdmin(req, res, next) {
